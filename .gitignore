@@ -1,0 +1,4 @@
+*.so
+*.a
+*.sublime*
+*a.out
