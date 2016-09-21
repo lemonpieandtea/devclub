@@ -108,6 +108,26 @@ IPv4Address::IPv4Address(uint32_t address) {
     convertToString();
 }
 
+bool IPv4Address::operator==(const IPv4Address& other) {
+    return equals(other);
+}
+
+bool IPv4Address::operator<(const IPv4Address& other) {
+    return lessThan(other);
+}
+
+bool IPv4Address::operator<=(const IPv4Address& other) {
+    return this->address <= other.toInt();
+}
+
+bool IPv4Address::operator>(const IPv4Address& other) {
+    return greaterThan(other);
+}
+
+bool IPv4Address::operator>=(const IPv4Address& other) {
+    return this->address >= other.toInt();
+}
+
 bool IPv4Address::lessThan(IPv4Address address) const {
     return this->address < address.toInt();
 }

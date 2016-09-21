@@ -78,6 +78,10 @@ bool Network::isPublic() const {
     return true;
 }
 
+bool Network::operator==(const Network& other) {
+    return (mask == other.getMask() && address == other.getAddress());
+}
+
 bool Network::contains(IPv4Address address) const {
     return (this->address.toInt() & mask.toInt()) == (address.toInt() & mask.toInt());
 }
