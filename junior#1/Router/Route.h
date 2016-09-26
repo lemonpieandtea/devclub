@@ -21,7 +21,8 @@ class Route {
         Route(Network network, IPv4Address gateway, const std::string& interfaceName, int metric);
         Route(Network network, const std::string& interfaceName, int metric);
 
-        bool operator==(const Route& other);
+        bool operator==(const Route& other) const;
+        bool operator!=(const Route& other) const;
 
         IPv4Address getGateway() const;
         const std::string& getInterfaceName() const;

@@ -25,7 +25,7 @@ bool IPv4Address::isIPAddr(const std::string& address) {
     int dots {0};
     int groupDigits {0};
 
-    for ( int i = 0; i < address.length(); ++i ) {
+    for ( int i {0}; i < address.length(); ++i ) {
         char addrElement = address[i];
 
         if ( addrElement == '.' && i != 0 ) {
@@ -51,7 +51,7 @@ void IPv4Address::convertToInt() {
     uint32_t tmpAddress {0};
     uint32_t ipBlock;
 
-    for ( int i = 0; i < highAddressFindIndex; ++i ) {
+    for ( int i {0}; i < highAddressFindIndex; ++i ) {
         std::size_t pos = addrHolder.find(".");
         ipBlock = std::stol(addrHolder.substr(0, pos));
 
@@ -108,36 +108,40 @@ IPv4Address::IPv4Address(uint32_t address) {
     convertToString();
 }
 
-bool IPv4Address::operator==(const IPv4Address& other) {
-    return equals(other);
+bool IPv4Address::operator==(const IPv4Address& other) const {
+    return this->address == other.toInt();
 }
 
-bool IPv4Address::operator<(const IPv4Address& other) {
-    return lessThan(other);
+bool IPv4Address::operator!=(const IPv4Address& other) const {
+    return !(*this == other);
 }
 
-bool IPv4Address::operator<=(const IPv4Address& other) {
+bool IPv4Address::operator<(const IPv4Address& other) const {
+    return this->address < other.toInt();
+}
+
+bool IPv4Address::operator<=(const IPv4Address& other) const {
     return this->address <= other.toInt();
 }
 
-bool IPv4Address::operator>(const IPv4Address& other) {
-    return greaterThan(other);
+bool IPv4Address::operator>(const IPv4Address& other) const {
+    return this->address > other.toInt();
 }
 
-bool IPv4Address::operator>=(const IPv4Address& other) {
+bool IPv4Address::operator>=(const IPv4Address& other) const {
     return this->address >= other.toInt();
 }
 
 bool IPv4Address::lessThan(IPv4Address address) const {
-    return this->address < address.toInt();
+    return *this < address;
 }
 
 bool IPv4Address::greaterThan(IPv4Address address) const {
-    return this->address > address.toInt();
+    return *this > address;
 }
 
 bool IPv4Address::equals(IPv4Address address) const {
-    return this->address == address.toInt();
+    return *this == address;
 }
 
 const std::string& IPv4Address::toString() const {

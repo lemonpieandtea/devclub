@@ -7,8 +7,8 @@
 #define TEST_CASE(a, b) std::cout << (a) << " -> " << (b) << std::endl;
 
 int main() {
-    IPv4Address address = IPv4Address("192.168.1.1");
-    Network net = Network(address, 32);
+    IPv4Address address = IPv4Address("192.168.0.0");
+    Network net = Network(address, 24);
 
     TEST_CASE(net.toString(), "192.168.0.0/24");
     TEST_CASE(net.getAddress().toString(), "192.168.0.0");

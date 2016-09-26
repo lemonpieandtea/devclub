@@ -14,9 +14,8 @@ Route Router::getRouteForAddress(IPv4Address address) {
     std::list<Route>::iterator bestRoute;
     bool routeFound {false};
 
-    for ( std::list<Route>::iterator it = routes.begin(); it != routes.end(); it++ ) {
-        bool isInNetwork = address >= (*it).getNetwork().getFirstUsableAddress() &&
-                           address <= (*it).getNetwork().getLastUsableAddress();
+    for ( auto it {routes.begin()}; it != routes.end(); it++ ) {
+        bool isInNetwork {(*it).getNetwork().contains(address)};
 
         if ( !routeFound && isInNetwork ) {
             bestRoute = it;
@@ -27,7 +26,11 @@ Route Router::getRouteForAddress(IPv4Address address) {
         }
     }
 
-    return routeFound ? *bestRoute : throw NoRouteFoundException();
+    if ( !routeFound ) {
+        throw NoRouteFoundException();
+    }
+
+    return *bestRoute;
 }
 
 const std::list<Route>& Router::getRoutes() const {

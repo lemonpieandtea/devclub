@@ -19,11 +19,12 @@ class IPv4Address {
         IPv4Address(const std::string& address);
         IPv4Address(uint32_t address);
 
-        bool operator==(const IPv4Address& other);
-        bool operator<(const IPv4Address& other);
-        bool operator<=(const IPv4Address& other);
-        bool operator>(const IPv4Address& other);
-        bool operator>=(const IPv4Address& other);
+        bool operator==(const IPv4Address& other) const;
+        bool operator!=(const IPv4Address& other) const;
+        bool operator<(const IPv4Address& other) const;
+        bool operator<=(const IPv4Address& other) const;
+        bool operator>(const IPv4Address& other) const;
+        bool operator>=(const IPv4Address& other) const;
 
         bool lessThan(IPv4Address address) const;
         bool greaterThan(IPv4Address address) const;

@@ -26,7 +26,8 @@ class Network {
     public:
         Network(IPv4Address address, uint8_t maskLength);
 
-        bool operator==(const Network& other);
+        bool operator==(const Network& other) const;
+        bool operator!=(const Network& other) const;
 
         bool isPublic() const;
         bool contains(IPv4Address address) const;

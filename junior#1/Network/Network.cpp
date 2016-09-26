@@ -78,12 +78,16 @@ bool Network::isPublic() const {
     return true;
 }
 
-bool Network::operator==(const Network& other) {
+bool Network::operator==(const Network& other) const {
     return (mask == other.getMask() && address == other.getAddress());
 }
 
+bool Network::operator!=(const Network& other) const {
+    return !(*this == other);
+}
+
 bool Network::contains(IPv4Address address) const {
-    return (this->address.toInt() & mask.toInt()) == (address.toInt() & mask.toInt());
+    return (address >= getFirstUsableAddress() && address <= getLastUsableAddress());
 }
 
 const std::string& Network::toString() const {

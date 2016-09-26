@@ -26,15 +26,35 @@ Route::Route(Network network, const std::string& interfaceName, int metric) :
         metric {metricvalidate(metric)},
         gatewayPresent {false} {}
 
-bool Route::operator==(const Route& other) {
+bool Route::operator==(const Route& other) const {
+    bool gatewaysEqual;
+
+    try {
+        gatewaysEqual = (gateway == other.getGateway());
+    } catch ( NoGatewayPresentException() ) {
+        if ( gatewayPresent ) {
+            return false;
+        }
+
+        gatewaysEqual = true;
+    }
+
     return (network == other.getNetwork() &&
-            gateway == other.getGateway() &&
+            gatewaysEqual &&
             interfaceName == other.getInterfaceName() &&
             metric == other.getMetric());
 }
 
+bool Route::operator!=(const Route& other) const {
+    return (*this == other);
+}
+
 IPv4Address Route::getGateway() const {
-    return gatewayPresent ? gateway : throw NoGatewayPresentException();
+    if ( !gatewayPresent ) {
+        throw NoGatewayPresentException();
+    }
+
+    return gateway;
 }
 
 const std::string& Route::getInterfaceName() const {
